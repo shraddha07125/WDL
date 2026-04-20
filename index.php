@@ -1,10 +1,19 @@
 <?php
-// Set timezone (optional but recommended)
-date_default_timezone_set("Asia/Kolkata");
-
-// Display welcome message
-echo "<h2>Welcome to My PHP Page!</h2>";
-
-// Display current date and time
-echo "<p>Current Date and Time: " . date("Y-m-d H:i:s") . "</p>";
+session_start();
+include 'db.php';
 ?>
+
+<h2>Products</h2>
+
+<?php
+$res = mysqli_query($conn, "SELECT * FROM products");
+
+while($row = mysqli_fetch_assoc($res)) {
+    echo "<div>
+        <h3>{$row['name']}</h3>
+        <p>Price: {$row['price']}</p>
+        <a href='add_to_cart.php?id={$row['id']}'>Add to Cart</a>
+    </div><hr>";
+}
+?>
+<a href="cart.php">View Cart</a>
